@@ -7,7 +7,7 @@ package application;
 import accesAuxDonnees.DaoVIP;
 import ihm.FenetreIdentification;
 import ihm.AccueilApplication;
-import accesAuxDonnees.DaoEmp;
+import accesAuxDonnees.DaoPays;
 import accesAuxDonnees.SourceMariaDB;
 import java.net.PasswordAuthentication;
 import java.sql.Connection;
@@ -22,12 +22,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class Appli {
     // réfrences sur les DAO utilisés par l'application
-    private static DaoEmp daoEmp;
+    private static DaoPays daoPays;
     private static DaoVIP daoVIP;
 
     // les accesseurs aux DAO utilisés par l'application
-    public static DaoEmp getDaoEmp() {
-        return daoEmp;
+    public static DaoPays getDaoPays() {
+        return daoPays;
     }
 
     public static DaoVIP getDaoVIP() {
@@ -65,7 +65,7 @@ public class Appli {
         // Instanciation des objets nécessaires à l'application
         try {
             // les DAO nécessaires
-            daoEmp = new DaoEmp(laConnexion);
+            daoPays = new DaoPays(laConnexion);
             daoVIP = new DaoVIP(laConnexion);
             // la fenetre principale de l'application qui tourne dans l'EDT
             javax.swing.SwingUtilities.invokeLater(new Runnable() {

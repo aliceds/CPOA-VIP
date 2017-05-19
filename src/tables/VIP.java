@@ -69,5 +69,37 @@ public class VIP {
         return pays;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setCivilite(String civilite) {
+        this.civilite = civilite;
+    }
+
+    public void setDatenaissance(LocalDate datenaissance) {
+        this.datenaissance = datenaissance;
+    }
+
+    public void setLieunaissance(String lieunaissance) {
+        this.lieunaissance = lieunaissance;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
     
 }

@@ -6,10 +6,14 @@
 package ihm;
 
 import java.sql.SQLException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ListModel;
+import javax.swing.JOptionPane;
+import modele.ModeleJListPays;
 import modele.ModeleJTableVIP;
+import tables.VIP;
 
 /**
  *
@@ -18,6 +22,8 @@ import modele.ModeleJTableVIP;
 public class AccueilApplication extends javax.swing.JFrame {
 
     private ModeleJTableVIP leModeleVIP;
+    private ModeleJListPays leModelePays;
+    private VIP vip;
 
     /**
      * Creates new form AccueilApplication
@@ -25,6 +31,7 @@ public class AccueilApplication extends javax.swing.JFrame {
     public AccueilApplication() throws SQLException {
         // instanciation du modèle de données de la JTable (liste des VIP)
         this.leModeleVIP = new ModeleJTableVIP();
+        this.leModelePays = new ModeleJListPays();
         
         initComponents();
         
@@ -49,7 +56,7 @@ public class AccueilApplication extends javax.swing.JFrame {
         buttonGroupStatut = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panAjouterVIP = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        informationsVIP = new javax.swing.JPanel();
         lbNom = new javax.swing.JLabel();
         lbPrenom = new javax.swing.JLabel();
         lbCivilite = new javax.swing.JLabel();
@@ -64,14 +71,14 @@ public class AccueilApplication extends javax.swing.JFrame {
         rdMme = new javax.swing.JRadioButton();
         txtDateNaissance = new javax.swing.JTextField();
         txtLieuNaissance = new javax.swing.JTextField();
-        chkActeur = new javax.swing.JCheckBox();
-        chkRealisateur = new javax.swing.JCheckBox();
         rdLibre = new javax.swing.JRadioButton();
         rdOccupe = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        listPays = new javax.swing.JList<>();
         btValiderVIP = new javax.swing.JButton();
         btAnnulerVIP = new javax.swing.JButton();
+        chkActeur = new javax.swing.JCheckBox();
+        chkRealisateur = new javax.swing.JCheckBox();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panAjouterMariage = new javax.swing.JPanel();
@@ -83,7 +90,7 @@ public class AccueilApplication extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations VIP"));
+        informationsVIP.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations VIP"));
 
         lbNom.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         lbNom.setText("Nom");
@@ -110,42 +117,48 @@ public class AccueilApplication extends javax.swing.JFrame {
         lbPays.setText("Pays");
 
         buttonGroupCivilite.add(rdM);
+        rdM.setSelected(true);
         rdM.setText("M.");
 
         buttonGroupCivilite.add(rdMme);
         rdMme.setText("Mme");
 
-        buttonGroupRole.add(chkActeur);
-        chkActeur.setText("Acteur/trice");
-
-        buttonGroupRole.add(chkRealisateur);
-        chkRealisateur.setText("Réalisateur/trice");
-
         buttonGroupStatut.add(rdLibre);
+        rdLibre.setSelected(true);
         rdLibre.setText("Libre");
 
         buttonGroupStatut.add(rdOccupe);
         rdOccupe.setText("Occupé");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane2.setViewportView(jList2);
+        listPays.setModel(leModelePays);
+        listPays.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(listPays);
 
         btValiderVIP.setText("Valider");
+        btValiderVIP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btValiderVIPActionPerformed(evt);
+            }
+        });
 
         btAnnulerVIP.setText("Annuler");
+        btAnnulerVIP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAnnulerVIPActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        chkActeur.setText("Acteur/trice");
+
+        chkRealisateur.setText("Réalisateur/trice");
+
+        javax.swing.GroupLayout informationsVIPLayout = new javax.swing.GroupLayout(informationsVIP);
+        informationsVIP.setLayout(informationsVIPLayout);
+        informationsVIPLayout.setHorizontalGroup(
+            informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(informationsVIPLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbRole)
                     .addComponent(lbNom)
                     .addComponent(lbPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,80 +168,81 @@ public class AccueilApplication extends javax.swing.JFrame {
                     .addComponent(lbStatut)
                     .addComponent(lbPays)
                     .addComponent(btValiderVIP, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(informationsVIPLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(btAnnulerVIP)
                         .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(informationsVIPLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(informationsVIPLayout.createSequentialGroup()
+                                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(informationsVIPLayout.createSequentialGroup()
                                         .addComponent(rdM, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(rdMme, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(informationsVIPLayout.createSequentialGroup()
                                         .addGap(4, 4, 4)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtDateNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtLieuNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(chkActeur)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(rdOccupe)
-                                                    .addComponent(chkRealisateur))))))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informationsVIPLayout.createSequentialGroup()
+                                                .addComponent(rdOccupe)
+                                                .addGap(44, 44, 44)))))
                                 .addContainerGap(28, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(informationsVIPLayout.createSequentialGroup()
+                                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rdLibre, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(rdLibre, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(informationsVIPLayout.createSequentialGroup()
+                                        .addComponent(chkActeur)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chkRealisateur)))
                                 .addGap(0, 0, Short.MAX_VALUE))))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        informationsVIPLayout.setVerticalGroup(
+            informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(informationsVIPLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNom)
                     .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPrenom)
                     .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCivilite)
                     .addComponent(rdM)
                     .addComponent(rdMme))
                 .addGap(5, 5, 5)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDateNaissance)
                     .addComponent(txtDateNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbLieuNaissance)
                     .addComponent(txtLieuNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbRole)
                     .addComponent(chkActeur)
                     .addComponent(chkRealisateur))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbStatut)
                     .addComponent(rdLibre)
                     .addComponent(rdOccupe))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbPays)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informationsVIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btValiderVIP)
                     .addComponent(btAnnulerVIP))
                 .addContainerGap())
@@ -245,7 +259,7 @@ public class AccueilApplication extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(informationsVIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panAjouterVIPLayout.setVerticalGroup(
@@ -255,7 +269,7 @@ public class AccueilApplication extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panAjouterVIPLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(informationsVIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
@@ -342,6 +356,96 @@ public class AccueilApplication extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btValiderVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderVIPActionPerformed
+        // TODO add your handling code here:
+        try {
+            // validation saisie du prénom
+            String leNom = txtNom.getText();
+            if (leNom.isEmpty()) {
+                throw new Exception("champ nom vide");
+            }
+            vip.setNom(leNom);
+            
+            // saisie du prénom
+            String lePrenom = txtPrenom.getText();
+            if (lePrenom.isEmpty()) {
+                throw new Exception("champ prénom vide");
+            }
+            vip.setPrenom(lePrenom);
+            
+            // saisie de la civilité
+            if (rdM.isSelected()) {
+                vip.setCivilite(rdM.getText());
+            }
+            else {
+                vip.setCivilite(rdMme.getText());
+            }
+            
+            // saisie date de naissance
+            String laDateNaissance = txtDateNaissance.getText();
+            String[] champsDate = laDateNaissance.split("/");
+            try {
+                LocalDate dateNaissance = LocalDate.of(
+                    Integer.parseInt(champsDate[2]),
+                    Integer.parseInt(champsDate[1]),
+                    Integer.parseInt(champsDate[0])
+                );
+                vip.setDatenaissance(dateNaissance);
+            } catch (DateTimeException | NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                throw new Exception("format de date incorrect");
+            }
+            
+            // saisie lieu de naissance
+            String leLieuNaissance = txtLieuNaissance.getText();
+            if (leLieuNaissance.isEmpty()) {
+                throw new Exception("champ lieu de naissance vide");
+            }
+            vip.setLieunaissance(leLieuNaissance);
+            
+            // saisie role
+            if (chkActeur.isSelected() && chkRealisateur.isSelected()) {
+                vip.setRole("AR");
+            }
+            else if (chkActeur.isSelected()) {
+                vip.setRole("A");
+            }
+            else {
+                vip.setRole("R");
+            }
+            
+            // saisie statut
+            if (rdLibre.isSelected()){
+                vip.setStatut("L");
+            }
+            else {
+                vip.setStatut("O");
+            }
+            
+            //saisie pays
+            vip.setPays(listPays.getSelectedValue());
+            
+            this.dispose();
+                
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btValiderVIPActionPerformed
+
+    private void btAnnulerVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnnulerVIPActionPerformed
+        // TODO add your handling code here:
+        txtNom.setText("");
+        txtPrenom.setText("");
+        rdM.setSelected(true);
+        rdMme.setSelected(false);
+        txtDateNaissance.setText("");
+        txtLieuNaissance.setText("");
+        chkActeur.setSelected(false);
+        chkRealisateur.setSelected(false);
+        rdLibre.setSelected(true);
+        rdOccupe.setSelected(false);
+        listPays.setSelectedIndex(0);
+    }//GEN-LAST:event_btAnnulerVIPActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -390,8 +494,7 @@ public class AccueilApplication extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupStatut;
     private javax.swing.JCheckBox chkActeur;
     private javax.swing.JCheckBox chkRealisateur;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel informationsVIP;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -406,6 +509,7 @@ public class AccueilApplication extends javax.swing.JFrame {
     private javax.swing.JLabel lbPrenom;
     private javax.swing.JLabel lbRole;
     private javax.swing.JLabel lbStatut;
+    private javax.swing.JList<String> listPays;
     private javax.swing.JPanel panAjouterDivorce;
     private javax.swing.JPanel panAjouterMariage;
     private javax.swing.JPanel panAjouterPhoto;
