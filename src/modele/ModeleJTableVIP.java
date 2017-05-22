@@ -75,13 +75,15 @@ public class ModeleJTableVIP extends AbstractTableModel {
 
     public void insererVIP(VIP vip) throws SQLException {
         // on tente d'insérer l'employé dans la base
+        leConteneurVIP.clear();
         leDaoVIP.insererVIP(vip);
         // si c'est OK on l'ajoute au conteneur du modèle
-        leConteneurVIP.add(vip);
+        chargerLesVIP();
+        //leConteneurVIP.add(vip);
         // on rafraichit la vue par une notification de modification des données  
-        this.fireTableDataChanged();
+        //this.fireTableDataChanged();
     }
-
+    /*
     public void supprimerVIP(int ligne) throws SQLException {
         // on récupère le numéro de l'employé de la ligne sélectionnée
         int numVIP = (int) getValueAt(ligne, 0);
@@ -91,7 +93,7 @@ public class ModeleJTableVIP extends AbstractTableModel {
         leConteneurVIP.remove(ligne);
         // on rafraichit la vue par une notification de modification des données
         this.fireTableDataChanged();
-    }
+    }*/
 
     public void chargerLesVIP() throws SQLException {
         // chargement de tous les employés dans la base dans le conteneur du modèle

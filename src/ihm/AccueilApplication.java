@@ -23,7 +23,8 @@ public class AccueilApplication extends javax.swing.JFrame {
 
     private ModeleJTableVIP leModeleVIP;
     private ModeleJListPays leModelePays;
-    private VIP vip;
+    private VIP vip = new VIP();
+    //private boolean etatSortie;
 
     /**
      * Creates new form AccueilApplication
@@ -33,14 +34,22 @@ public class AccueilApplication extends javax.swing.JFrame {
         this.leModeleVIP = new ModeleJTableVIP();
         this.leModelePays = new ModeleJListPays();
         
-        initComponents();
+        //etatSortie = false;
+        
+        
         
         try {
             leModeleVIP.chargerLesVIP();
+            initComponents();
         } catch (SQLException ex) {
             System.out.println("Erreur au chargement : "+ex.getMessage());
         }
     }
+    /*
+    public boolean doModal() {
+        setVisible(true);
+        return etatSortie;
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -359,12 +368,12 @@ public class AccueilApplication extends javax.swing.JFrame {
     private void btValiderVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderVIPActionPerformed
         // TODO add your handling code here:
         try {
-            // validation saisie du prénom
+            // validation saisie du nom
             String leNom = txtNom.getText();
             if (leNom.isEmpty()) {
                 throw new Exception("champ nom vide");
             }
-            vip.setNom(leNom);
+           vip.setNom(leNom);
             
             // saisie du prénom
             String lePrenom = txtPrenom.getText();
@@ -424,11 +433,17 @@ public class AccueilApplication extends javax.swing.JFrame {
             //saisie pays
             vip.setPays(listPays.getSelectedValue());
             
-            this.dispose();
+            //etatSortie = true;
+            
+            leModeleVIP.insererVIP(vip);
+            
+           
                 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.WARNING_MESSAGE);
         }
+        System.out.println(vip.getDatenaissance());
+        
     }//GEN-LAST:event_btValiderVIPActionPerformed
 
     private void btAnnulerVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnnulerVIPActionPerformed

@@ -68,27 +68,27 @@ public class DaoVIP {
         rset.close();
         pstmt.close();
     }
-
+    /*
     public void supprimerVIP(int numVIP) throws SQLException {
         String requete = "delete from VIP where numVIP = ?";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setInt(1, numVIP);
         pstmt.executeUpdate();
         pstmt.close();
-    }
+    }*/
 
     public void insererVIP(VIP vip) throws SQLException {
-        String requete = "insert into EMP (empno, ename, job, hiredate, deptno) values(?,?,?,?,?)";
+        String requete = "insert into VIP (nom, prenom, civilite, datenaissance, lieunaissance, role, statut, pays) values(?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-        pstmt.setInt(1, vip.getNumVIP());
-        pstmt.setString(2, vip.getNom());
-        pstmt.setString(3, vip.getPrenom());
-        pstmt.setString(4, vip.getCivilite());
-        pstmt.setDate(5, java.sql.Date.valueOf(vip.getDatenaissance()));
-        pstmt.setString(6, vip.getLieunaissance());
-        pstmt.setString(7, vip.getRole());
-        pstmt.setString(8, vip.getStatut());
-        pstmt.setString(9, vip.getPays());
+        //pstmt.setInt(1, vip.getNumVIP());
+        pstmt.setString(1, vip.getNom());
+        pstmt.setString(2, vip.getPrenom());
+        pstmt.setString(3, vip.getCivilite());
+        pstmt.setDate(4, java.sql.Date.valueOf(vip.getDatenaissance()));
+        pstmt.setString(5, vip.getLieunaissance());
+        pstmt.setString(6, vip.getRole());
+        pstmt.setString(7, vip.getStatut());
+        pstmt.setString(8, vip.getPays());
         pstmt.executeUpdate();
         pstmt.close();
     }
