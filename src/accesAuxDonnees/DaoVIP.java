@@ -26,28 +26,6 @@ public class DaoVIP {
         this.connexion = connexion;
     }
 
-    public void recupererVIP(List<VIP> lesVIP) throws SQLException {
-        String requete = "select * from VIP";
-        Statement stmt = connexion.createStatement();
-        ResultSet rset = stmt.executeQuery(requete);
-        while (rset.next()) {       // traitement du résulat
-            int numVIP = rset.getInt(1);
-            String nom = rset.getString(2);
-            String prenom = rset.getString(3);
-            String civilite = rset.getString(4);
-            LocalDate datenaissance = rset.getDate(5).toLocalDate();
-            String lieunaissance = rset.getString(6);
-            String role = rset.getString(7);
-            String statut = rset.getString(8);
-            String pays = rset.getString(9);
-
-            VIP personne = new VIP(numVIP, nom, prenom, civilite, datenaissance, lieunaissance, role, statut, pays);
-            lesVIP.add(personne);
-        }
-        rset.close();
-        stmt.close();
-    } // recupererGroupes
-
     public void lireLesVIP(List<VIP> lesVIP) throws SQLException {
         String requete = "select * from VIP";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
@@ -68,19 +46,31 @@ public class DaoVIP {
         rset.close();
         pstmt.close();
     }
-    /*
-    public void supprimerVIP(int numVIP) throws SQLException {
-        String requete = "delete from VIP where numVIP = ?";
+    
+    public void lireLesVIPL(List<VIP> lesVIP) throws SQLException {
+        String requete = "select nom,prenom from VIP where statut='L'";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-        pstmt.setInt(1, numVIP);
-        pstmt.executeUpdate();
+        ResultSet rset = pstmt.executeQuery(requete);
+        while (rset.next()) {       // traitement du résulat
+            int numVIP = rset.getInt(1);
+            String nom = rset.getString(2);
+            String prenom = rset.getString(3);
+            String civilite = rset.getString(4);
+            LocalDate datenaissance = rset.getDate(5).toLocalDate();
+            String lieunaissance = rset.getString(6);
+            String role = rset.getString(7);
+            String statut = rset.getString(8);
+            String pays = rset.getString(9);
+            VIP temp = new VIP(numVIP, nom, prenom, civilite, datenaissance, lieunaissance, role, statut, pays);
+            lesVIP.add(temp);
+        }
+        rset.close();
         pstmt.close();
-    }*/
-
+    }
+    
     public void insererVIP(VIP vip) throws SQLException {
         String requete = "insert into VIP (nom, prenom, civilite, datenaissance, lieunaissance, role, statut, pays) values(?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-        //pstmt.setInt(1, vip.getNumVIP());
         pstmt.setString(1, vip.getNom());
         pstmt.setString(2, vip.getPrenom());
         pstmt.setString(3, vip.getCivilite());
@@ -92,5 +82,14 @@ public class DaoVIP {
         pstmt.executeUpdate();
         pstmt.close();
     }
-
+    
+    public void modifierStatutVIP(VIP vip) throws SQLException {
+        String requete = "update VIP set statut=? where numVIP=?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setString(1, vip.getStatut());
+        pstmt.setInt(2, vip.getNumVIP());
+        pstmt.executeUpdate();
+        pstmt.close();
+        
+    }
 } // class DaoGroupe

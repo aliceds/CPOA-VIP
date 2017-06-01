@@ -2,7 +2,7 @@ package tables;
 
 /**
  *
- * @author Alain
+ * @author Alice
  */
 public class Pays {
 

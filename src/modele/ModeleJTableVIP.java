@@ -83,17 +83,12 @@ public class ModeleJTableVIP extends AbstractTableModel {
         // on rafraichit la vue par une notification de modification des données  
         //this.fireTableDataChanged();
     }
-    /*
-    public void supprimerVIP(int ligne) throws SQLException {
-        // on récupère le numéro de l'employé de la ligne sélectionnée
-        int numVIP = (int) getValueAt(ligne, 0);
-        // on tente de supprimer l'employé dans la base
-        leDaoVIP.supprimerVIP(numVIP);
-        // si c'est OK on l'enlève du conteneur du modèle
-        leConteneurVIP.remove(ligne);
-        // on rafraichit la vue par une notification de modification des données
-        this.fireTableDataChanged();
-    }*/
+    
+    public void modifierStatutVIP(VIP vip) throws SQLException {
+        leConteneurVIP.clear();
+        leDaoVIP.modifierStatutVIP(vip);
+        chargerLesVIP();
+    }
 
     public void chargerLesVIP() throws SQLException {
         // chargement de tous les employés dans la base dans le conteneur du modèle

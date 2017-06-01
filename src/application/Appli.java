@@ -4,10 +4,12 @@
  */
 package application;
 
+import accesAuxDonnees.DaoEvenement;
 import accesAuxDonnees.DaoVIP;
 import ihm.FenetreIdentification;
 import ihm.AccueilApplication;
 import accesAuxDonnees.DaoPays;
+import accesAuxDonnees.DaoVIPL;
 import accesAuxDonnees.SourceMariaDB;
 import java.net.PasswordAuthentication;
 import java.sql.Connection;
@@ -24,6 +26,8 @@ public class Appli {
     // réfrences sur les DAO utilisés par l'application
     private static DaoPays daoPays;
     private static DaoVIP daoVIP;
+    private static DaoVIPL daoVIPL;
+    private static DaoEvenement daoEvenement;
 
     // les accesseurs aux DAO utilisés par l'application
     public static DaoPays getDaoPays() {
@@ -32,6 +36,14 @@ public class Appli {
 
     public static DaoVIP getDaoVIP() {
         return daoVIP;
+    }
+    
+    public static DaoVIPL getDaoVIPL() {
+        return daoVIPL;
+    }
+    
+    public static DaoEvenement getDaoEvenement() {
+        return daoEvenement;
     }
 
     // le point d'entré du programme
@@ -67,6 +79,8 @@ public class Appli {
             // les DAO nécessaires
             daoPays = new DaoPays(laConnexion);
             daoVIP = new DaoVIP(laConnexion);
+            daoVIPL = new DaoVIPL(laConnexion);
+            daoEvenement = new DaoEvenement(laConnexion);
             // la fenetre principale de l'application qui tourne dans l'EDT
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override
