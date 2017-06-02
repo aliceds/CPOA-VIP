@@ -5,6 +5,8 @@
 package application;
 
 import accesAuxDonnees.DaoEvenement;
+import accesAuxDonnees.DaoEvenementTotal;
+import accesAuxDonnees.DaoMariage;
 import accesAuxDonnees.DaoVIP;
 import ihm.FenetreIdentification;
 import ihm.AccueilApplication;
@@ -28,6 +30,8 @@ public class Appli {
     private static DaoVIP daoVIP;
     private static DaoVIPL daoVIPL;
     private static DaoEvenement daoEvenement;
+    private static DaoMariage daoMariage;
+    private static DaoEvenementTotal daoEvenementTotal;
 
     // les accesseurs aux DAO utilisés par l'application
     public static DaoPays getDaoPays() {
@@ -44,6 +48,14 @@ public class Appli {
     
     public static DaoEvenement getDaoEvenement() {
         return daoEvenement;
+    }
+    
+    public static DaoMariage getDaoMariage() {
+        return daoMariage;
+    }
+    
+    public static DaoEvenementTotal getDaoEvenementTotal() {
+        return daoEvenementTotal;
     }
 
     // le point d'entré du programme
@@ -81,6 +93,8 @@ public class Appli {
             daoVIP = new DaoVIP(laConnexion);
             daoVIPL = new DaoVIPL(laConnexion);
             daoEvenement = new DaoEvenement(laConnexion);
+            daoMariage = new DaoMariage(laConnexion);
+            daoEvenementTotal = new DaoEvenementTotal(laConnexion);
             // la fenetre principale de l'application qui tourne dans l'EDT
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override

@@ -83,13 +83,4 @@ public class DaoVIP {
         pstmt.close();
     }
     
-    public void modifierStatutVIP(VIP vip) throws SQLException {
-        String requete = "update VIP set statut=? where numVIP=?";
-        PreparedStatement pstmt = connexion.prepareStatement(requete);
-        pstmt.setString(1, vip.getStatut());
-        pstmt.setInt(2, vip.getNumVIP());
-        pstmt.executeUpdate();
-        pstmt.close();
-        
-    }
 } // class DaoGroupe

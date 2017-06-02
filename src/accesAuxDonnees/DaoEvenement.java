@@ -42,6 +42,7 @@ public class DaoEvenement {
         rset.close();
         pstmt.close();
     }
+    
        
     public void insererEvenement(Evenement evt) throws SQLException {
         String requete = "insert into evenement (numVIP1, date_mariage, numVIP2, lieu_mariage, date_divorce) values(?,?,?,?,?)";
@@ -54,6 +55,17 @@ public class DaoEvenement {
         //pstmt.setInt(5, evt.getDate_divorce());
         pstmt.executeUpdate();
         pstmt.close();
+    }
+    
+    public void modifierEvenement(Evenement evt) throws SQLException {
+        String requete = "update evenement set date_divorce=? where numVIP1=? and date_mariage=?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, evt.getDate_divorce());
+        pstmt.setInt(2, evt.getNumVIP1());
+        pstmt.setInt(3, evt.getDate_mariage());
+        pstmt.executeUpdate();
+        pstmt.close();
+        
     }
     
 }

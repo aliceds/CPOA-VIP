@@ -9,11 +9,16 @@ import java.sql.SQLException;
 import static java.sql.Types.NULL;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modele.ModeleJListEvenement;
 import modele.ModeleJListPays;
+import modele.ModeleJTableEvenementTotal;
+import modele.ModeleJTableMariage;
 import modele.ModeleJTableVIPL;
 import modele.ModeleJTableVIP;
 import tables.Evenement;
@@ -29,8 +34,15 @@ public class AccueilApplication extends javax.swing.JFrame {
     private ModeleJListPays leModelePays;
     private ModeleJTableVIPL leModeleVIPL;
     private ModeleJListEvenement leModeleEvenement;
+    private ModeleJTableMariage leModeleMariage;
+    private ModeleJTableEvenementTotal leModeleEvenementTotal;
+    
     private VIP vip = new VIP();
     private Evenement evenement = new Evenement();
+    
+    // variables de date
+    Date date = new Date();
+    Calendar cal = new GregorianCalendar();
 
     /**
      * Creates new form AccueilApplication
@@ -41,10 +53,14 @@ public class AccueilApplication extends javax.swing.JFrame {
         this.leModelePays = new ModeleJListPays();
         this.leModeleVIPL = new ModeleJTableVIPL();
         this.leModeleEvenement = new ModeleJListEvenement();
+        this.leModeleMariage = new ModeleJTableMariage();
+        this.leModeleEvenementTotal = new ModeleJTableEvenementTotal();
         
         
         try {
             leModeleVIP.chargerLesVIP();
+            leModeleMariage.chargerLesMariages();
+            leModeleEvenementTotal.chargerLesEvenementsTotal();
             initComponents();
         } catch (SQLException ex) {
             System.out.println("Erreur au chargement : " + ex.getMessage());
@@ -63,9 +79,7 @@ public class AccueilApplication extends javax.swing.JFrame {
         buttonGroupCivilite = new javax.swing.ButtonGroup();
         buttonGroupRole = new javax.swing.ButtonGroup();
         buttonGroupStatut = new javax.swing.ButtonGroup();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panConsulterLesEvenements = new javax.swing.JTabbedPane();
         panAjouterVIP = new javax.swing.JPanel();
         informationsVIP = new javax.swing.JPanel();
         lbNom = new javax.swing.JLabel();
@@ -106,26 +120,31 @@ public class AccueilApplication extends javax.swing.JFrame {
         txtLieuMariage = new javax.swing.JTextField();
         lbDateMariage = new javax.swing.JLabel();
         lbLieuMariage = new javax.swing.JLabel();
+        btnActualiserVIPL = new javax.swing.JButton();
         panAjouterDivorce = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableMariages = new javax.swing.JTable();
+        lbSelectionnerMariage = new javax.swing.JLabel();
+        btnValiderDivorce = new javax.swing.JToggleButton();
+        btnAnnulerDivorce = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtDateDivorce = new javax.swing.JTextField();
+        btnActualiserMariages = new javax.swing.JButton();
         panAjouterPhoto = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         lbBienvenue = new javax.swing.JLabel();
         lbLogin = new javax.swing.JLabel();
         btnDeconnexion = new javax.swing.JButton();
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable2);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        panConsulterLesEvenements.setBackground(new java.awt.Color(255, 255, 255));
+
+        panAjouterVIP.setBackground(new java.awt.Color(255, 255, 255));
 
         informationsVIP.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations VIP"));
 
@@ -169,6 +188,7 @@ public class AccueilApplication extends javax.swing.JFrame {
 
         listPays.setModel(leModelePays);
         listPays.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listPays.setToolTipText("");
         jScrollPane2.setViewportView(listPays);
 
         btValiderVIP.setText("Valider");
@@ -285,7 +305,9 @@ public class AccueilApplication extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jTable1.setFont(new java.awt.Font("Calibri Light", 0, 11)); // NOI18N
         jTable1.setModel(leModeleVIP);
+        jTable1.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jScrollPane3.setViewportView(jTable1);
 
         javax.swing.GroupLayout panAjouterVIPLayout = new javax.swing.GroupLayout(panAjouterVIP);
@@ -310,7 +332,9 @@ public class AccueilApplication extends javax.swing.JFrame {
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("ajouter un VIP", panAjouterVIP);
+        panConsulterLesEvenements.addTab("ajouter un VIP", panAjouterVIP);
+
+        panAjouterMariage.setBackground(new java.awt.Color(255, 255, 255));
 
         panAjoutMariage.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter un mariage"));
 
@@ -328,16 +352,36 @@ public class AccueilApplication extends javax.swing.JFrame {
         });
 
         btnAnnulerMariage.setText("Annuler");
+        btnAnnulerMariage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnnulerMariageActionPerformed(evt);
+            }
+        });
 
         tableConjoint.setModel(leModeleVIPL);
+        tableConjoint.setRowHeight(19);
+        tableConjoint.setSelectionBackground(new java.awt.Color(255, 204, 204));
+        tableConjoint.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane6.setViewportView(tableConjoint);
 
         tableVIP1.setModel(leModeleVIPL);
+        tableVIP1.setOpaque(false);
+        tableVIP1.setRowHeight(19);
+        tableVIP1.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        tableVIP1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableVIP1.setUpdateSelectionOnSort(false);
         jScrollPane7.setViewportView(tableVIP1);
 
         lbDateMariage.setText("Date du mariage");
 
         lbLieuMariage.setText("Lieu du mariage");
+
+        btnActualiserVIPL.setText("Actualiser");
+        btnActualiserVIPL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualiserVIPLActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAjoutMariageLayout = new javax.swing.GroupLayout(panAjoutMariage);
         panAjoutMariage.setLayout(panAjoutMariageLayout);
@@ -347,7 +391,8 @@ public class AccueilApplication extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panAjoutMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbSelectionVIP1)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualiserVIPL))
                 .addGap(46, 46, 46)
                 .addGroup(panAjoutMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbConjoint)
@@ -387,11 +432,17 @@ public class AccueilApplication extends javax.swing.JFrame {
                         .addComponent(lbLieuMariage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtLieuMariage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(panAjoutMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAnnulerMariage)
-                    .addComponent(btnValiderMariage))
-                .addGap(29, 29, 29))
+                .addGroup(panAjoutMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panAjoutMariageLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addGroup(panAjoutMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAnnulerMariage)
+                            .addComponent(btnValiderMariage))
+                        .addGap(29, 29, 29))
+                    .addGroup(panAjoutMariageLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualiserVIPL)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout panAjouterMariageLayout = new javax.swing.GroupLayout(panAjouterMariage);
@@ -411,20 +462,113 @@ public class AccueilApplication extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("ajouter un mariage", panAjouterMariage);
+        panConsulterLesEvenements.addTab("ajouter un mariage", panAjouterMariage);
+
+        panAjouterDivorce.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations du divorce"));
+
+        tableMariages.setBackground(new java.awt.Color(204, 204, 204));
+        tableMariages.setModel(leModeleMariage);
+        tableMariages.setGridColor(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setViewportView(tableMariages);
+
+        lbSelectionnerMariage.setText("Sélectionner un mariage dans la liste");
+
+        btnValiderDivorce.setText("Valider");
+        btnValiderDivorce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValiderDivorceActionPerformed(evt);
+            }
+        });
+
+        btnAnnulerDivorce.setText("Annuler");
+
+        jLabel1.setText("Date du divorce");
+
+        txtDateDivorce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateDivorceActionPerformed(evt);
+            }
+        });
+
+        btnActualiserMariages.setText("Actualiser");
+        btnActualiserMariages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualiserMariagesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnActualiserMariages)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbSelectionnerMariage)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnValiderDivorce)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(btnAnnulerDivorce))
+                                    .addComponent(txtDateDivorce, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(60, 60, 60))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(99, 99, 99))))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(lbSelectionnerMariage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDateDivorce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnValiderDivorce)
+                            .addComponent(btnAnnulerDivorce))))
+                .addGap(18, 18, 18)
+                .addComponent(btnActualiserMariages)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout panAjouterDivorceLayout = new javax.swing.GroupLayout(panAjouterDivorce);
         panAjouterDivorce.setLayout(panAjouterDivorceLayout);
         panAjouterDivorceLayout.setHorizontalGroup(
             panAjouterDivorceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 901, Short.MAX_VALUE)
+            .addGroup(panAjouterDivorceLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         panAjouterDivorceLayout.setVerticalGroup(
             panAjouterDivorceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAjouterDivorceLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("ajouter un Divorce", panAjouterDivorce);
+        panConsulterLesEvenements.addTab("ajouter un Divorce", panAjouterDivorce);
+
+        panAjouterPhoto.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panAjouterPhotoLayout = new javax.swing.GroupLayout(panAjouterPhoto);
         panAjouterPhoto.setLayout(panAjouterPhotoLayout);
@@ -437,7 +581,33 @@ public class AccueilApplication extends javax.swing.JFrame {
             .addGap(0, 369, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("ajouter une photo", panAjouterPhoto);
+        panConsulterLesEvenements.addTab("ajouter une photo", panAjouterPhoto);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane4.setBackground(java.awt.Color.white);
+
+        jTable3.setModel(leModeleEvenementTotal);
+        jScrollPane4.setViewportView(jTable3);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        panConsulterLesEvenements.addTab("consulter les événements", jPanel2);
 
         lbBienvenue.setFont(new java.awt.Font("Britannic Bold", 0, 36)); // NOI18N
         lbBienvenue.setText("Bienvenue");
@@ -463,7 +633,7 @@ public class AccueilApplication extends javax.swing.JFrame {
                 .addGap(107, 107, 107))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panConsulterLesEvenements, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -479,7 +649,7 @@ public class AccueilApplication extends javax.swing.JFrame {
                             .addComponent(btnDeconnexion)
                             .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panConsulterLesEvenements, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -594,6 +764,9 @@ public class AccueilApplication extends javax.swing.JFrame {
 
     private void btnValiderMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValiderMariageActionPerformed
         // TODO add your handling code here:
+        // récupération de l'année d'aujourd'hui
+        cal.setTime(date);
+        int year = Integer.valueOf(String.format("%1$tY",date));
         
         try {
             //numVIP1
@@ -607,7 +780,10 @@ public class AccueilApplication extends javax.swing.JFrame {
             // date_mariage
             String laDateMariage = txtDateMariage.getText();
             if (laDateMariage.isEmpty()) {
-                throw new Exception("champ date vide");
+                throw new Exception("date incorrecte");
+            }
+            else if (Integer.parseInt(laDateMariage)>year) {
+                throw new Exception("date incorrecte");
             }
             evenement.setDate_mariage(Integer.parseInt(laDateMariage));
            
@@ -617,19 +793,90 @@ public class AccueilApplication extends javax.swing.JFrame {
                 throw new Exception("champ lieu de mariage vide");
             }
             evenement.setLieu_mariage(lieuMariage);
-            
-            //date_divorce
-            //evenement.setDate_divorce(NULL);
-            
+                                  
             // insertion dans la base
             leModeleEvenement.insererEvenement(evenement);
             
+            // réinitialisation des champs
+            txtDateMariage.setText("");
+            txtLieuMariage.setText("");
+            tableVIP1.getSelectionModel().setSelectionInterval(0,0);
+            tableConjoint.getSelectionModel().setSelectionInterval(0,0);
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnValiderMariageActionPerformed
+
+    private void btnAnnulerMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnulerMariageActionPerformed
+        // TODO add your handling code here:
+        txtDateMariage.setText("");
+        txtLieuMariage.setText("");
+        tableVIP1.getSelectionModel().setSelectionInterval(0,0);
+        tableConjoint.getSelectionModel().setSelectionInterval(0,0);
+    }//GEN-LAST:event_btnAnnulerMariageActionPerformed
+
+    private void txtDateDivorceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateDivorceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDateDivorceActionPerformed
+
+    private void btnValiderDivorceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValiderDivorceActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            //numVIP1
+            int numVIP1 = (int) tableMariages.getValueAt(tableMariages.getSelectedRow(),0);
+            evenement.setNumVIP1(numVIP1);
+            
+            //date mariage
+            
+            int dateMariage = (int) tableMariages.getValueAt(tableMariages.getSelectedRow(),6);
+            evenement.setDate_mariage(dateMariage);
+            
+            // date divorce
+            String dateDivorce = txtDateDivorce.getText();
+            if (dateDivorce.isEmpty()) {
+                throw new Exception("date incorrecte");
+            }
+            int laDateDivorce = Integer.parseInt(txtDateDivorce.getText());
+            evenement.setDate_divorce(laDateDivorce);
+            
+            System.out.println(numVIP1+" "+dateMariage+" "+dateDivorce);
+                                  
+            // insertion dans la base
+            leModeleEvenement.modifierEvenement(evenement);
+            
+            // réinitialisation des champs
+            txtDateDivorce.setText("");
+            tableMariages.getSelectionModel().setSelectionInterval(0,0);
+            
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_btnValiderDivorceActionPerformed
+
+    private void btnActualiserMariagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualiserMariagesActionPerformed
+        try {
+            // TODO add your handling code here:
+            leModeleMariage.chargerLesMariages();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccueilApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnActualiserMariagesActionPerformed
+
+    private void btnActualiserVIPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualiserVIPLActionPerformed
+        try {
+            // TODO add your handling code here:
+            leModeleVIPL.chargerLesVIPL();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccueilApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnActualiserVIPLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -673,8 +920,12 @@ public class AccueilApplication extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnnulerVIP;
     private javax.swing.JButton btValiderVIP;
+    private javax.swing.JButton btnActualiserMariages;
+    private javax.swing.JButton btnActualiserVIPL;
+    private javax.swing.JToggleButton btnAnnulerDivorce;
     private javax.swing.JButton btnAnnulerMariage;
     private javax.swing.JButton btnDeconnexion;
+    private javax.swing.JToggleButton btnValiderDivorce;
     private javax.swing.JButton btnValiderMariage;
     private javax.swing.ButtonGroup buttonGroupCivilite;
     private javax.swing.ButtonGroup buttonGroupRole;
@@ -682,14 +933,17 @@ public class AccueilApplication extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkActeur;
     private javax.swing.JCheckBox chkRealisateur;
     private javax.swing.JPanel informationsVIP;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lbBienvenue;
     private javax.swing.JLabel lbCivilite;
     private javax.swing.JLabel lbConjoint;
@@ -703,6 +957,7 @@ public class AccueilApplication extends javax.swing.JFrame {
     private javax.swing.JLabel lbPrenom;
     private javax.swing.JLabel lbRole;
     private javax.swing.JLabel lbSelectionVIP1;
+    private javax.swing.JLabel lbSelectionnerMariage;
     private javax.swing.JLabel lbStatut;
     private javax.swing.JList<String> listPays;
     private javax.swing.JPanel panAjoutMariage;
@@ -710,12 +965,15 @@ public class AccueilApplication extends javax.swing.JFrame {
     private javax.swing.JPanel panAjouterMariage;
     private javax.swing.JPanel panAjouterPhoto;
     private javax.swing.JPanel panAjouterVIP;
+    private javax.swing.JTabbedPane panConsulterLesEvenements;
     private javax.swing.JRadioButton rdLibre;
     private javax.swing.JRadioButton rdM;
     private javax.swing.JRadioButton rdMme;
     private javax.swing.JRadioButton rdOccupe;
     private javax.swing.JTable tableConjoint;
+    private javax.swing.JTable tableMariages;
     private javax.swing.JTable tableVIP1;
+    private javax.swing.JTextField txtDateDivorce;
     private javax.swing.JTextField txtDateMariage;
     private javax.swing.JTextField txtDateNaissance;
     private javax.swing.JTextField txtLieuMariage;

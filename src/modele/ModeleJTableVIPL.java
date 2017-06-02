@@ -30,7 +30,9 @@ public class ModeleJTableVIPL extends AbstractTableModel{
     }
     
     public void chargerLesVIPL() throws SQLException {
+        listeVIPL.clear();
         leDaoVIPL.lireLesVIPL(listeVIPL);
+        this.fireTableDataChanged();
     }
     
     

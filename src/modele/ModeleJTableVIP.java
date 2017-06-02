@@ -83,12 +83,6 @@ public class ModeleJTableVIP extends AbstractTableModel {
         // on rafraichit la vue par une notification de modification des données  
         //this.fireTableDataChanged();
     }
-    
-    public void modifierStatutVIP(VIP vip) throws SQLException {
-        leConteneurVIP.clear();
-        leDaoVIP.modifierStatutVIP(vip);
-        chargerLesVIP();
-    }
 
     public void chargerLesVIP() throws SQLException {
         // chargement de tous les employés dans la base dans le conteneur du modèle

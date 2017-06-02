@@ -6,6 +6,7 @@
 package modele;
 
 import accesAuxDonnees.DaoEvenement;
+import accesAuxDonnees.DaoMariage;
 import accesAuxDonnees.DaoPays;
 import application.Appli;
 import java.sql.SQLException;
@@ -35,11 +36,18 @@ public class ModeleJListEvenement extends AbstractListModel<String>{
     public void chargerLesEvenements() throws SQLException {
         // chargement de tous les employés dans la base dans le conteneur du modèle
         leDaoEvenement.recupererLesEvenements(listeEvenement);
+        
     }
     
     public void insererEvenement(Evenement evenement) throws SQLException {
         listeEvenement.clear();
         leDaoEvenement.insererEvenement(evenement);
+        chargerLesEvenements();
+    }
+    
+    public void modifierEvenement(Evenement evenement) throws SQLException {
+        listeEvenement.clear();
+        leDaoEvenement.modifierEvenement(evenement);
         chargerLesEvenements();
     }
     
