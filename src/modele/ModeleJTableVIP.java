@@ -74,20 +74,13 @@ public class ModeleJTableVIP extends AbstractTableModel {
     }
 
     public void insererVIP(VIP vip) throws SQLException {
-        // on tente d'insérer l'employé dans la base
         leConteneurVIP.clear();
         leDaoVIP.insererVIP(vip);
-        // si c'est OK on l'ajoute au conteneur du modèle
         chargerLesVIP();
-        //leConteneurVIP.add(vip);
-        // on rafraichit la vue par une notification de modification des données  
-        //this.fireTableDataChanged();
     }
 
     public void chargerLesVIP() throws SQLException {
-        // chargement de tous les employés dans la base dans le conteneur du modèle
         leDaoVIP.lireLesVIP(leConteneurVIP);
-        // si c'est OK on rafraichit la vue par une notification  
         this.fireTableDataChanged();
     }
 }

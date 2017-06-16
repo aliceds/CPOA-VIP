@@ -4,6 +4,8 @@
  */
 package application;
 
+import accesAuxDonnees.CreerConnexion;
+import accesAuxDonnees.DaoApparaitre;
 import accesAuxDonnees.DaoEvenement;
 import accesAuxDonnees.DaoEvenementTotal;
 import accesAuxDonnees.DaoMariage;
@@ -11,8 +13,10 @@ import accesAuxDonnees.DaoVIP;
 import ihm.FenetreIdentification;
 import ihm.AccueilApplication;
 import accesAuxDonnees.DaoPays;
+import accesAuxDonnees.DaoPhoto;
 import accesAuxDonnees.DaoVIPL;
 import accesAuxDonnees.SourceMariaDB;
+import java.io.IOException;
 import java.net.PasswordAuthentication;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,6 +26,9 @@ import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPSClient;
 
 
 public class Appli {
@@ -32,6 +39,9 @@ public class Appli {
     private static DaoEvenement daoEvenement;
     private static DaoMariage daoMariage;
     private static DaoEvenementTotal daoEvenementTotal;
+    private static DaoApparaitre daoApparaitre;
+    private static DaoPhoto daoPhoto;
+    private static FTPSClient ftp;
 
     // les accesseurs aux DAO utilisés par l'application
     public static DaoPays getDaoPays() {
@@ -57,12 +67,30 @@ public class Appli {
     public static DaoEvenementTotal getDaoEvenementTotal() {
         return daoEvenementTotal;
     }
+    
+    public static DaoApparaitre getDaoApparaitre() {
+        return daoApparaitre;
+    }
+    
+    public static DaoPhoto getDaoPhoto() {
+        return daoPhoto;
+    }
+    
+    public static FTPSClient getFtp () {
+        return ftp;
+    }
 
     // le point d'entré du programme
     public static void main(String[] args) {
         // les variables locales
         DataSource laSourceDeDonnees;   // la sourde de données
         Connection laConnexion = null;  // la connexion
+        
+        try {
+            ftp = CreerConnexion.CreerConnexion();
+        } catch (IOException ex) {
+            System.out.println("erreur lors de la création connexion FTPS : "+ex.getMessage());
+        }
         
         // Look and Feel windows
         try {
@@ -95,6 +123,8 @@ public class Appli {
             daoEvenement = new DaoEvenement(laConnexion);
             daoMariage = new DaoMariage(laConnexion);
             daoEvenementTotal = new DaoEvenementTotal(laConnexion);
+            daoApparaitre = new DaoApparaitre(laConnexion);
+            daoPhoto = new DaoPhoto(laConnexion);
             // la fenetre principale de l'application qui tourne dans l'EDT
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override

@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 import tables.VIP;
+import tables.VIPPhoto;
 
 /**
  *
@@ -80,6 +81,21 @@ public class DaoVIP {
         pstmt.setString(7, vip.getStatut());
         pstmt.setString(8, vip.getPays());
         pstmt.executeUpdate();
+        pstmt.close();
+    }
+    
+    public void recupererLesVIPPhoto(List<VIPPhoto> lesVIPPhoto) throws SQLException {
+        String requete = "select numVIP, nom, prenom from VIP";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        ResultSet rset = pstmt.executeQuery(requete);
+        while (rset.next()) {       // traitement du résulat
+            int numVIP = rset.getInt(1);
+            String nom = rset.getString(2);
+            String prenom = rset.getString(3);
+            VIPPhoto temp = new VIPPhoto(numVIP, nom, prenom);
+            lesVIPPhoto.add(temp);
+        }
+        rset.close();
         pstmt.close();
     }
     
