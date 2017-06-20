@@ -102,14 +102,17 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" pref="392" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="informationsVIP" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="informationsVIP" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="31" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -128,65 +131,66 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbRole" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbNom" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbPrenom" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="lbCivilite" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbDateNaissance" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbLieuNaissance" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbStatut" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbPays" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="btValiderVIP" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btAnnulerVIP" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="rdM" min="-2" pref="75" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="rdMme" min="-2" pref="87" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txtNom" min="-2" pref="199" max="-2" attributes="0"/>
-                                                      <Component id="txtPrenom" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                                      <Component id="txtDateNaissance" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                                      <Component id="txtLieuNaissance" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="rdOccupe" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace pref="28" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane2" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
-                                              <Component id="rdLibre" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="chkActeur" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="chkRealisateur" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="lbRole" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbNom" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPrenom" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
+                                      <Component id="lbCivilite" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbDateNaissance" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbLieuNaissance" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbStatut" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPays" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rdM" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="rdMme" min="-2" pref="87" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtNom" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Component id="txtPrenom" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Component id="txtDateNaissance" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Component id="txtLieuNaissance" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="rdOccupe" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="rdLibre" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="chkActeur" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="chkRealisateur" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jScrollPane2" min="-2" pref="203" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="btValiderVIP" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btAnnulerVIP" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -214,7 +218,9 @@
                               <Component id="lbDateNaissance" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtDateNaissance" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lbLieuNaissance" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtLieuNaissance" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -233,13 +239,15 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbPays" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="51" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btValiderVIP" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btAnnulerVIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="lbPays" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="btValiderVIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btAnnulerVIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -398,6 +406,11 @@
                 <Component class="javax.swing.JCheckBox" name="chkRealisateur">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="R&#xe9;alisateur/trice"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="(JJ/MM/AAAA)"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -632,7 +645,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbDateMariage">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Date du mariage"/>
+                    <Property name="text" type="java.lang.String" value="Ann&#xe9;e du mariage"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbLieuMariage">
@@ -667,7 +680,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="99" max="32767" attributes="0"/>
+                      <EmptySpace pref="97" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -707,24 +720,19 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jScrollPane1" min="-2" pref="518" max="-2" attributes="0"/>
-                                  <EmptySpace pref="35" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="btnValiderDivorce" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                                  <Component id="btnAnnulerDivorce" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="txtDateDivorce" min="-2" pref="155" max="-2" attributes="0"/>
+                                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnValiderDivorce" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                              <Component id="btnAnnulerDivorce" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                          <Component id="txtDateDivorce" min="-2" pref="155" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -807,7 +815,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Date du divorce"/>
+                    <Property name="text" type="java.lang.String" value="Ann&#xe9;e du divorce"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtDateDivorce">
@@ -841,8 +849,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane10" pref="571" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btbActualiserPhotos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane10" min="-2" pref="531" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="26" max="32767" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
@@ -857,8 +868,10 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jScrollPane10" min="-2" pref="398" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="jScrollPane10" min="-2" pref="357" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btbActualiserPhotos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -887,7 +900,7 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField1" min="-2" pref="173" max="-2" attributes="0"/>
+                                      <Component id="txtNomPhoto" min="-2" pref="173" max="-2" attributes="0"/>
                                       <Component id="lbTitrePhoto" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -901,10 +914,10 @@
                                           <Component id="btnAnnulerPhoto" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -919,7 +932,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnParcourir" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNomPhoto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lbNomsPhoto" min="-2" max="-2" attributes="0"/>
@@ -951,7 +964,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbNomsPhoto">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="S&#xe9;lectionner les VIP qui apparaissent sur la photo"/>
+                    <Property name="text" type="java.lang.String" value="S&#xe9;lectionner les VIP qui apparaissent sur la photo (ctrl pour s&#xe9;lection multiple)"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAjouterPhoto">
@@ -966,6 +979,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Annuler"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnnulerPhotoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane9">
                   <AuxValues>
@@ -991,7 +1007,7 @@
                     <Property name="text" type="java.lang.String" value="Entrez le nom de la photo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="txtNomPhoto">
                 </Component>
               </SubComponents>
             </Container>
@@ -1011,6 +1027,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JToggleButton" name="btbActualiserPhotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Actualiser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btbActualiserPhotosActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -1027,7 +1051,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="103" max="32767" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" pref="797" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnActualiserEvenements" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" min="-2" pref="797" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1037,7 +1064,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="342" max="-2" attributes="0"/>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <Component id="btnActualiserEvenements" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1086,6 +1115,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="btnActualiserEvenements">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Actualiser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualiserEvenementsActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

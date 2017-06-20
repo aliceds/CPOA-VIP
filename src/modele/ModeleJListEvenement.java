@@ -28,17 +28,31 @@ public class ModeleJListEvenement extends AbstractListModel<String>{
         leDaoEvenement.recupererLesEvenements(listeEvenement);
     }
     
+    /**
+     * charge les événements
+     * @throws SQLException 
+     */
     public void chargerLesEvenements() throws SQLException {
         leDaoEvenement.recupererLesEvenements(listeEvenement);
         
     }
     
+    /**
+     * insère l'événement evenement
+     * @param evenement
+     * @throws SQLException 
+     */
     public void insererEvenement(Evenement evenement) throws SQLException {
         listeEvenement.clear();
         leDaoEvenement.insererEvenement(evenement);
         chargerLesEvenements();
     }
     
+    /**
+     * modifie l'événement evenement
+     * @param evenement
+     * @throws SQLException 
+     */
     public void modifierEvenement(Evenement evenement) throws SQLException {
         listeEvenement.clear();
         leDaoEvenement.modifierEvenement(evenement);

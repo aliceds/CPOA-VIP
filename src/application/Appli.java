@@ -4,7 +4,7 @@
  */
 package application;
 
-import accesAuxDonnees.CreerConnexion;
+import accesAuxDonnees.SourceFTPS;
 import accesAuxDonnees.DaoApparaitre;
 import accesAuxDonnees.DaoEvenement;
 import accesAuxDonnees.DaoEvenementTotal;
@@ -26,8 +26,6 @@ import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPSClient;
 
 
@@ -83,11 +81,11 @@ public class Appli {
     // le point d'entré du programme
     public static void main(String[] args) {
         // les variables locales
-        DataSource laSourceDeDonnees;   // la sourde de données
-        Connection laConnexion = null;  // la connexion
+        DataSource laSourceDeDonnees;
+        Connection laConnexion = null;
         
         try {
-            ftp = CreerConnexion.CreerConnexion();
+            ftp = SourceFTPS.getFTPS(); //connexion FTPS
         } catch (IOException ex) {
             System.out.println("erreur lors de la création connexion FTPS : "+ex.getMessage());
         }

@@ -23,6 +23,11 @@ public class DaoVIPL {
         this.connexion = connexion;
     }
 
+    /**
+     * récupère la liste des VIP célibataires dans la liste entrée en paramètres
+     * @param lesVIPL
+     * @throws SQLException 
+     */
     public void lireLesVIPL(List<VIPL> lesVIPL) throws SQLException {
         String requete = "select numVIP, nom, prenom from VIP where statut='L'";
         PreparedStatement pstmt = connexion.prepareStatement(requete);

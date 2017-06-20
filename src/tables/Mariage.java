@@ -6,7 +6,8 @@
 package tables;
 
 /**
- *
+ * table evenement
+ * mariage (EvenementTotal sans la date de divorce)
  * @author Alice
  */
 public class Mariage {

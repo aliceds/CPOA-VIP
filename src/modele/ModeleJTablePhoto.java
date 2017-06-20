@@ -9,12 +9,10 @@ import accesAuxDonnees.DaoPhoto;
 import application.Appli;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import tables.Photo;
-import tables.VIP;
 
 /**
  *
@@ -32,17 +30,33 @@ public class ModeleJTablePhoto extends AbstractTableModel {
 
     }
     
+    /**
+     * récupère la photo correspondant à celle entrée en paramètre
+     * @param photo
+     * @throws SQLException 
+     */
     public void recupererLaPhoto(Photo photo) throws SQLException {
         leDaoPhoto.recupererLaPhoto(photo);
     }
     
+    /**
+     * insère la photo entrée en paramètres
+     * @param photo
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void insererPhoto(Photo photo) throws SQLException, IOException {
         leDaoPhoto.insererPhoto(photo);
     }
     
+    /**
+     * charge la liste des photos
+     * @throws SQLException 
+     */
     public void chargerLesPhotos () throws SQLException {
         listePhotos.clear();
         leDaoPhoto.recupererLesPhotos(listePhotos);
+        this.fireTableDataChanged();
     }
     
     @Override

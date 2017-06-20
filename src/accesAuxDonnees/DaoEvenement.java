@@ -10,10 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.time.LocalDate;
 import java.util.List;
 import tables.Evenement;
-import tables.VIP;
 
 /**
  *
@@ -26,11 +24,17 @@ public class DaoEvenement {
         this.connexion = connexion;
     }
     
+    /**
+     * 
+     * @param lesEvenements
+     * @throws SQLException 
+     * récupère la liste des événements dans la liste entrée en paramètres
+     */
     public void recupererLesEvenements(List<Evenement> lesEvenements) throws SQLException {
         String requete = "select * from evenement";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         ResultSet rset = pstmt.executeQuery(requete);
-        while (rset.next()) {       // traitement du résulat
+        while (rset.next()) {
             int numVIP1 = rset.getInt(1);
             int date_mariage = rset.getInt(2);
             int numVIP2 = rset.getInt(3);
@@ -43,7 +47,12 @@ public class DaoEvenement {
         pstmt.close();
     }
     
-       
+   /**
+    * 
+    * @param evt
+    * @throws SQLException 
+    * insère l'événement entré en paramètre dans la table evenement
+    */    
     public void insererEvenement(Evenement evt) throws SQLException {
         String requete = "insert into evenement (numVIP1, date_mariage, numVIP2, lieu_mariage, date_divorce) values(?,?,?,?,?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
@@ -52,11 +61,17 @@ public class DaoEvenement {
         pstmt.setInt(3, evt.getNumVIP2());
         pstmt.setString(4, evt.getLieu_mariage());
         pstmt.setNull(5, Types.INTEGER);
-        //pstmt.setInt(5, evt.getDate_divorce());
         pstmt.executeUpdate();
         pstmt.close();
     }
     
+    
+    /**
+     * 
+     * @param evt
+     * @throws SQLException 
+     * modifie l'événement entré en paramètre
+     */
     public void modifierEvenement(Evenement evt) throws SQLException {
         String requete = "update evenement set date_divorce=? where numVIP1=? and date_mariage=?";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
@@ -69,8 +84,3 @@ public class DaoEvenement {
     }
     
 }
-/* Créer un champ divorce dans ajouter un mariage
- * on récupère la date si date entrée
- * sinon 
- *
-*/

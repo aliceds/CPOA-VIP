@@ -6,7 +6,8 @@
 package tables;
 
 /**
- *
+ * table VIP
+ * vip célibataire donc statut = 'L'
  * @author Alice
  */
 public class VIPL {

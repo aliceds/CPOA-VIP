@@ -12,10 +12,16 @@ import org.mariadb.jdbc.MariaDbDataSource;
 
 /**
  *
- * @author Alain
+ * @author Alice
  */
 public class SourceMariaDB {
     
+    /**
+     * renvoie un objet DataSource
+     * @param login
+     * @return
+     * @throws Exception 
+     */
     public static DataSource getSource(PasswordAuthentication login) throws Exception {
         // récupération des informations d'authentification
         String user = login.getUserName();

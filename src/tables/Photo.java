@@ -5,10 +5,9 @@
  */
 package tables;
 
-import java.io.File;
 
 /**
- *
+ * table photo
  * @author Alice
  */
 public class Photo {

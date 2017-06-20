@@ -6,7 +6,9 @@
 package tables;
 
 /**
- *
+ * table VIP
+ * objet VIP pour insérer dans la liste des VIP permettant d'ajouter des apparitions
+ * dans la fenêtre "ajouter photo"
  * @author Alice
  */
 public class VIPPhoto {

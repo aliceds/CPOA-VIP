@@ -21,20 +21,24 @@ public class ModeleApparition {
     private final DaoApparaitre leDaoApparaitre;
 
     public ModeleApparition() throws SQLException {
-        // définition du conteneur des groupes
         this.listeApparition = new ArrayList<>();
-        // récupération de la référence sur l'objet DAO utilisé
         this.leDaoApparaitre = Appli.getDaoApparaitre();
-        // chargement des groupes depuis la table
         leDaoApparaitre.recupererLesApparitions(listeApparition);
     }
     
+    /**
+     * charge les apparitions
+     * @throws SQLException 
+     */
     public void chargerLesApparitions() throws SQLException {
-        // chargement de tous les employés dans la base dans le conteneur du modèle
-        leDaoApparaitre.recupererLesApparitions(listeApparition);
-        
+        leDaoApparaitre.recupererLesApparitions(listeApparition);  
     }
     
+    /**
+     * insère l'apparition a
+     * @param a
+     * @throws SQLException 
+     */
     public void insererApparition(Apparaitre a) throws SQLException {
         listeApparition.clear();
         leDaoApparaitre.insererApparition(a);

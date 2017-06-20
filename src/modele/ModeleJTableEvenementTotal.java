@@ -6,14 +6,12 @@
 package modele;
 
 import accesAuxDonnees.DaoEvenementTotal;
-import accesAuxDonnees.DaoMariage;
 import application.Appli;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import tables.EvenementTotal;
-import tables.Mariage;
 
 /**
  *
@@ -71,11 +69,13 @@ public class ModeleJTableEvenementTotal extends AbstractTableModel {
         return titres[column];
     }
 
+    /**
+     * charge la liste des événements total
+     * @throws SQLException 
+     */
     public void chargerLesEvenementsTotal() throws SQLException {
         leConteneurEvenementTotal.clear();
-        // chargement de tous les employés dans la base dans le conteneur du modèle
         leDaoEvenementTotal.recupererLesEvenementsTotal(leConteneurEvenementTotal);
-        // si c'est OK on rafraichit la vue par une notification  
         this.fireTableDataChanged();
     }
 }

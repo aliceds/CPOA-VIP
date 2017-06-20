@@ -6,8 +6,8 @@
 package tables;
 
 /**
- *
- * @author Alice
+ * table apparait
+ * apparitions des VIP
  */
 public class Apparaitre {
     private int ID_photo;
@@ -16,7 +16,6 @@ public class Apparaitre {
     public Apparaitre() {
         
     }
-
     public Apparaitre(int ID_photo, int numVIP) {
         this.ID_photo = ID_photo;
         this.numVIP = numVIP;

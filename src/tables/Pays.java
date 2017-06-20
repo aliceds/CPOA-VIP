@@ -1,7 +1,7 @@
 package tables;
 
 /**
- *
+ * table pays
  * @author Alice
  */
 public class Pays {

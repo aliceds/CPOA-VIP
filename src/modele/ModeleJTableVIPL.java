@@ -29,6 +29,10 @@ public class ModeleJTableVIPL extends AbstractTableModel{
         this.titres = new String[]{"num VIP","nom","prénom"};
     }
     
+    /**
+     * charge la liste des VIP célibataires
+     * @throws SQLException 
+     */
     public void chargerLesVIPL() throws SQLException {
         listeVIPL.clear();
         leDaoVIPL.lireLesVIPL(listeVIPL);

@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 import tables.VIP;
@@ -17,7 +16,7 @@ import tables.VIPPhoto;
 
 /**
  *
- * @author Alain
+ * @author Alice
  */
 public class DaoVIP {
 
@@ -27,11 +26,16 @@ public class DaoVIP {
         this.connexion = connexion;
     }
 
+    /**
+     * récupère la liste des VIP dans la liste entrée en paramètre
+     * @param lesVIP
+     * @throws SQLException 
+     */
     public void lireLesVIP(List<VIP> lesVIP) throws SQLException {
         String requete = "select * from VIP";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         ResultSet rset = pstmt.executeQuery(requete);
-        while (rset.next()) {       // traitement du résulat
+        while (rset.next()) {
             int numVIP = rset.getInt(1);
             String nom = rset.getString(2);
             String prenom = rset.getString(3);
@@ -48,11 +52,17 @@ public class DaoVIP {
         pstmt.close();
     }
     
+    /**
+     * récupère la liste des VIPL (célibataires) dans la liste entrée en
+     * paramètres
+     * @param lesVIP
+     * @throws SQLException 
+     */
     public void lireLesVIPL(List<VIP> lesVIP) throws SQLException {
         String requete = "select nom,prenom from VIP where statut='L'";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         ResultSet rset = pstmt.executeQuery(requete);
-        while (rset.next()) {       // traitement du résulat
+        while (rset.next()) {
             int numVIP = rset.getInt(1);
             String nom = rset.getString(2);
             String prenom = rset.getString(3);
@@ -69,6 +79,11 @@ public class DaoVIP {
         pstmt.close();
     }
     
+    /**
+     * insère le VIP entré en paramètres dans la table VIP
+     * @param vip
+     * @throws SQLException 
+     */
     public void insererVIP(VIP vip) throws SQLException {
         String requete = "insert into VIP (nom, prenom, civilite, datenaissance, lieunaissance, role, statut, pays) values(?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
@@ -84,11 +99,16 @@ public class DaoVIP {
         pstmt.close();
     }
     
+    /**
+     * récupère la liste des VIPPhoto dans la liste entrée en paramètres
+     * @param lesVIPPhoto
+     * @throws SQLException 
+     */
     public void recupererLesVIPPhoto(List<VIPPhoto> lesVIPPhoto) throws SQLException {
-        String requete = "select numVIP, nom, prenom from VIP";
+        String requete = "select numVIP, nom, prenom from VIP order by nom";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         ResultSet rset = pstmt.executeQuery(requete);
-        while (rset.next()) {       // traitement du résulat
+        while (rset.next()) {
             int numVIP = rset.getInt(1);
             String nom = rset.getString(2);
             String prenom = rset.getString(3);
@@ -99,4 +119,4 @@ public class DaoVIP {
         pstmt.close();
     }
     
-} // class DaoGroupe
+}

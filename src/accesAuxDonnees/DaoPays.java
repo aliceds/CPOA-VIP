@@ -13,7 +13,7 @@ import tables.Pays;
 
 /**
  *
- * @author Alain
+ * @author Alice
  */
 public class DaoPays {
 
@@ -23,11 +23,16 @@ public class DaoPays {
         this.connexion = connexion;
     }
 
+    /**
+     * récupère la liste des pays dans la liste entrée en paramètre
+     * @param lesPays
+     * @throws SQLException 
+     */
     public void recupererLesPays(List<Pays> lesPays) throws SQLException {
         String requete = "select * from pays";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         ResultSet rset = pstmt.executeQuery(requete);
-        while (rset.next()) {       // traitement du résulat
+        while (rset.next()) {
             String pays = rset.getString(1);
             Pays temp = new Pays(pays);
             lesPays.add(temp);
@@ -35,16 +40,4 @@ public class DaoPays {
         rset.close();
         pstmt.close();
     }
-/*
-    public void insererEmploye(Pays emp) throws SQLException {
-        String requete = "insert into EMP (empno, ename, job, hiredate, deptno) values(?,?,?,?,?)";
-        PreparedStatement pstmt = connexion.prepareStatement(requete);
-        pstmt.setInt(1, emp.getNumEmp());
-        pstmt.setString(2, emp.getNomEmp());
-        pstmt.setString(3, emp.getJobEmp());
-        pstmt.setDate(4, java.sql.Date.valueOf(emp.getDateEmp()));
-        pstmt.setInt(5, emp.getDeptEmp());
-        pstmt.executeUpdate();
-        pstmt.close();
-    }*/
 }

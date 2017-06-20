@@ -10,7 +10,7 @@ import tables.Pays;
 
 /**
  *
- * @author Administrateur
+ * @author Alice
  */
 public class ModeleJListPays extends AbstractListModel<String> {
 
@@ -18,16 +18,16 @@ public class ModeleJListPays extends AbstractListModel<String> {
     private final DaoPays leDaoPays;
 
     public ModeleJListPays() throws SQLException {
-        // définition du conteneur des groupes
         this.listePays = new ArrayList<>();
-        // récupération de la référence sur l'objet DAO utilisé
         this.leDaoPays = Appli.getDaoPays();
-        // chargement des groupes depuis la table
         leDaoPays.recupererLesPays(listePays);
     }
     
+    /**
+     * charge la liste des pays
+     * @throws SQLException 
+     */
     public void chargerLesPays() throws SQLException {
-        // chargement de tous les employés dans la base dans le conteneur du modèle
         leDaoPays.recupererLesPays(listePays);
     }
     
@@ -41,5 +41,5 @@ public class ModeleJListPays extends AbstractListModel<String> {
     public String getElementAt(int i) {
         return listePays.get(i).getPays();
     }
-} // Fin classe ModeleJComboBox
+}
 

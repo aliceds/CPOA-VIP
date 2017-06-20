@@ -8,12 +8,10 @@ package modele;
 import accesAuxDonnees.DaoMariage;
 import application.Appli;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import tables.Mariage;
-import tables.VIP;
 
 /**
  *
@@ -69,11 +67,13 @@ public class ModeleJTableMariage extends AbstractTableModel {
         return titres[column];
     }
 
+    /**
+     * charge la liste des mariages
+     * @throws SQLException 
+     */
     public void chargerLesMariages() throws SQLException {
         leConteneurMariage.clear();
-        // chargement de tous les employés dans la base dans le conteneur du modèle
         leDaoMariage.recupererLesMariages(leConteneurMariage);
-        // si c'est OK on rafraichit la vue par une notification  
         this.fireTableDataChanged();
     }
 }

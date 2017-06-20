@@ -3,7 +3,7 @@ package tables;
 import java.time.LocalDate;
 
 /**
- *
+ * table VIP
  * @author Alice
  */
 public class VIP {
@@ -12,7 +12,7 @@ public class VIP {
     private String nom;
     private String prenom;
     private String civilite;
-    private LocalDate datenaissance; // garder Date comme type ?
+    private LocalDate datenaissance;
     private String lieunaissance;
     private String role;
     private String statut;

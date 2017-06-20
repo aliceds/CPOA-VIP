@@ -6,7 +6,9 @@
 package tables;
 
 /**
- *
+ * table evenement
+ * mariages entre vip1 et vip2
+ * si encore mariés, date_divorce = null
  * @author Alice
  */
 public class Evenement {

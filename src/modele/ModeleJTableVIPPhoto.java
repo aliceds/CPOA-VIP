@@ -8,11 +8,9 @@ package modele;
 import accesAuxDonnees.DaoVIP;
 import application.Appli;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import tables.VIP;
 import tables.VIPPhoto;
 
 /**
@@ -31,6 +29,10 @@ public class ModeleJTableVIPPhoto extends AbstractTableModel {
         this.leDaoVIP = Appli.getDaoVIP();
     }
 
+    /**
+     * charge la liste des VIPPhoto
+     * @throws SQLException 
+     */
     public void chargerLesVIPPhoto() throws SQLException {
         leDaoVIP.recupererLesVIPPhoto(listeVIPPhoto);
         this.fireTableDataChanged();
