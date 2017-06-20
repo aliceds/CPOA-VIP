@@ -1,4 +1,4 @@
-package tables;
+package metier;
 
 import java.time.LocalDate;
 

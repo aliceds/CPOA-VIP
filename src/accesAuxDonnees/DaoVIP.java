@@ -11,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import tables.VIP;
-import tables.VIPPhoto;
+import metier.VIP;
+import metier.VIPPhoto;
 
 /**
  *
@@ -85,7 +85,8 @@ public class DaoVIP {
      * @throws SQLException 
      */
     public void insererVIP(VIP vip) throws SQLException {
-        String requete = "insert into VIP (nom, prenom, civilite, datenaissance, lieunaissance, role, statut, pays) values(?,?,?,?,?,?,?,?)";
+        String requete = "insert into VIP (nom, prenom, civilite, datenaissance, "
+                + "lieunaissance, role, statut, pays) values(?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, vip.getNom());
         pstmt.setString(2, vip.getPrenom());

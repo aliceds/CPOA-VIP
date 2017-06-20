@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
-import tables.Evenement;
+import metier.Evenement;
 
 /**
  *

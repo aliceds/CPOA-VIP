@@ -10,7 +10,7 @@ import application.Appli;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tables.Apparaitre;
+import metier.Apparaitre;
 
 /**
  *

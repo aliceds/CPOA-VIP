@@ -32,10 +32,10 @@ import modele.ModeleJTableVIPL;
 import modele.ModeleJTableVIP;
 import modele.ModeleJTablePhoto;
 import org.apache.commons.net.ftp.FTPSClient;
-import tables.Apparaitre;
-import tables.Evenement;
-import tables.Photo;
-import tables.VIP;
+import metier.Apparaitre;
+import metier.Evenement;
+import metier.Photo;
+import metier.VIP;
 
 /**
  *
@@ -904,6 +904,8 @@ public class AccueilApplication extends javax.swing.JFrame {
             rdLibre.setSelected(true);
             rdOccupe.setSelected(false);
             listPays.setSelectedIndex(0);
+            
+            JOptionPane.showMessageDialog(this, "Le VIP a bien été enregistré.", "Validation", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.WARNING_MESSAGE);
@@ -970,6 +972,8 @@ public class AccueilApplication extends javax.swing.JFrame {
             txtLieuMariage.setText("");
             tableVIP1.getSelectionModel().setSelectionInterval(0, 0);
             tableConjoint.getSelectionModel().setSelectionInterval(0, 0);
+            
+            leModeleVIPL.chargerLesVIPL();
             
             JOptionPane.showMessageDialog(this, "Le mariage a bien été enregistré.", "Validation", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1122,7 +1126,7 @@ public class AccueilApplication extends javax.swing.JFrame {
     private void btnActualiserEvenementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualiserEvenementsActionPerformed
         try {
             // TODO add your handling code here:
-            leModeleEvenement.chargerLesEvenements();
+            leModeleEvenementTotal.chargerLesEvenementsTotal();
         } catch (SQLException ex) {
             System.out.println("erreur au chargement des événements : " + ex.getMessage());
         }
@@ -1135,44 +1139,6 @@ public class AccueilApplication extends javax.swing.JFrame {
         btnParcourir.setSelected(false);
     }//GEN-LAST:event_btnAnnulerPhotoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AccueilApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AccueilApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AccueilApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AccueilApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new AccueilApplication().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(AccueilApplication.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnnulerVIP;

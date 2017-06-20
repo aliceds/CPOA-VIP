@@ -1,4 +1,4 @@
-package tables;
+package metier;
 
 /**
  * table pays

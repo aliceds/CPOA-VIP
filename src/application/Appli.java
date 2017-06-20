@@ -97,7 +97,8 @@ public class Appli {
             System.out.print(e.getMessage());
         }
 
-        // Etablissement de la connexion à la base MariaDB avec affichage de la fenetre d'identification 
+        // Etablissement de la connexion à la base MariaDB avec affichage de la fenetre 
+        //d'identification 
         boolean etat = false;
         do {
             FenetreIdentification fi = new FenetreIdentification(null);
