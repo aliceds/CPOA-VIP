@@ -94,6 +94,7 @@ public class AccueilApplication extends javax.swing.JFrame {
         }
     }
     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,6 +182,7 @@ public class AccueilApplication extends javax.swing.JFrame {
         lbBienvenue = new javax.swing.JLabel();
         lbLogin = new javax.swing.JLabel();
         btnDeconnexion = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -414,9 +416,16 @@ public class AccueilApplication extends javax.swing.JFrame {
         tableVIP1.setOpaque(false);
         tableVIP1.setRowHeight(19);
         tableVIP1.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        tableVIP1.setSelectionForeground(new java.awt.Color(51, 51, 51));
         tableVIP1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableVIP1.setUpdateSelectionOnSort(false);
         jScrollPane7.setViewportView(tableVIP1);
+
+        txtDateMariage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateMariageActionPerformed(evt);
+            }
+        });
 
         lbDateMariage.setText("Année du mariage");
 
@@ -778,7 +787,8 @@ public class AccueilApplication extends javax.swing.JFrame {
 
         panConsulterLesEvenements.addTab("consulter les événements", jPanel2);
 
-        lbBienvenue.setFont(new java.awt.Font("DejaVu Sans Mono", 0, 48)); // NOI18N
+        lbBienvenue.setFont(new java.awt.Font("Times New Roman", 2, 24)); // NOI18N
+        lbBienvenue.setForeground(new java.awt.Color(153, 153, 153));
         lbBienvenue.setText("Bienvenue");
 
         btnDeconnexion.setText("déconnexion");
@@ -788,16 +798,26 @@ public class AccueilApplication extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
+        jLabel3.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(lbBienvenue)
-                .addGap(53, 53, 53)
-                .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(lbBienvenue)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDeconnexion)
                 .addGap(107, 107, 107))
             .addGroup(layout.createSequentialGroup()
@@ -810,14 +830,18 @@ public class AccueilApplication extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbBienvenue))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDeconnexion)
-                            .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lbBienvenue)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panConsulterLesEvenements, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -943,6 +967,7 @@ public class AccueilApplication extends javax.swing.JFrame {
             //numVIP1
             int numVIP1 = (int) tableVIP1.getValueAt(tableVIP1.getSelectedRow(), 0);
             evenement.setNumVIP1(numVIP1);
+           
 
             //numVIP2
             int numConjoint = (int) tableConjoint.getValueAt(tableConjoint.getSelectedRow(), 0);
@@ -952,7 +977,7 @@ public class AccueilApplication extends javax.swing.JFrame {
             String laDateMariage = txtDateMariage.getText();
             if (laDateMariage.isEmpty()) {
                 throw new Exception("date incorrecte");
-            } else if (Integer.parseInt(laDateMariage) > year) {
+            } else if (Integer.parseInt(laDateMariage) < 1900 || Integer.parseInt(laDateMariage) > year) {
                 throw new Exception("date incorrecte");
             }
             evenement.setDate_mariage(Integer.parseInt(laDateMariage));
@@ -1139,6 +1164,10 @@ public class AccueilApplication extends javax.swing.JFrame {
         btnParcourir.setSelected(false);
     }//GEN-LAST:event_btnAnnulerPhotoActionPerformed
 
+    private void txtDateMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateMariageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDateMariageActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnnulerVIP;
@@ -1163,6 +1192,7 @@ public class AccueilApplication extends javax.swing.JFrame {
     private javax.swing.JPanel informationsVIP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
